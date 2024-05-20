@@ -119,3 +119,12 @@ end
 ---@param category string The name of the custom category to add the item to.
 function categories:AddItemToCategory(id, category)
 end
+
+---@class Config
+local config = {}
+
+-- AddPluginConfig adds a plugin's configuration to the BetterBags configuration.
+---@param name string
+---@param opts AceConfig.OptionsTable
+function config:AddPluginConfig(name, opts)
+end
