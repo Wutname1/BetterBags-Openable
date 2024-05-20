@@ -1,6 +1,6 @@
 ## Interface: 100207
 ## Title: BetterBags - Openable Items
-## Notes: Filters all items that have a <Right Click to Open> option
+## Notes: Filters all items that have a <Right Click to Open> or Use option
 ## IconTexture: Interface/Addons/BetterBags-Openable/Icon
 ## Version: 1.0.0
 ## Author: wutname1
