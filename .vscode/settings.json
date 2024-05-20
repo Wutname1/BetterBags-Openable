@@ -1,0 +1,10 @@
+{
+  "Lua.diagnostics.globals": [
+    "ITEM_OPENABLE",
+    "ITEM_COSMETIC_LEARN",
+    "LOCKED",
+    "ITEM_CREATE_LOOT_SPEC_ITEM",
+    "ITEM_TOY_ONUSE",
+    "ITEM_SPELL_TRIGGER_ONUSE"
+  ]
+}

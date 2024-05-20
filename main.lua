@@ -18,7 +18,7 @@ function addon:OnInitialize()
 		FilterGenericUse = false,
 		FilterToys = true,
 		FilterAppearance = true,
-		CreateableItem = true
+		CreatableItem = true
 	}
 
 	--Setup DB
@@ -67,17 +67,17 @@ function addon:OnInitialize()
 				DB.FilterAppearance = value
 			end
 		},
-		CreateableItem = {
+		CreatableItem = {
 			type = 'toggle',
 			width = 'full',
 			order = 3,
-			name = 'Filter Createable Items',
+			name = 'Filter Creatable Items',
 			desc = 'Filter all items with `' .. ITEM_CREATE_LOOT_SPEC_ITEM .. '` in the tooltip',
 			get = function()
-				return DB.CreateableItem
+				return DB.CreatableItem
 			end,
 			set = function(_, value)
-				DB.CreateableItem = value
+				DB.CreatableItem = value
 			end
 		}
 	}
@@ -127,9 +127,9 @@ local function filter(data)
 
 		-- Remove (%s). from ITEM_CREATE_LOOT_SPEC_ITEM
 		local CreateItemString = ITEM_CREATE_LOOT_SPEC_ITEM:gsub(' %(%%s%)%.', '')
-		if DB.CreateableItem then
+		if DB.CreatableItem then
 			if string.find(LineText, CreateItemString) then
-				return PREFIX .. 'Createable Items'
+				return PREFIX .. 'Creatable Items'
 			end
 		end
 
