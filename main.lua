@@ -1,26 +1,102 @@
+local addonName, root = ... --[[@type string, table]]
+---@class BetterBagsOpenable: AceModule AceDB
+local addon = LibStub('AceAddon-3.0'):NewAddon(root, addonName)
+local DataBase, DB = {}, {}
+
 ---@class BetterBags: AceAddon
-local addon = LibStub('AceAddon-3.0'):GetAddon('BetterBags')
+local BetterBags = LibStub('AceAddon-3.0'):GetAddon('BetterBags')
 ---@class Categories: AceModule
-local categories = addon:GetModule('Categories')
+local categories = BetterBags:GetModule('Categories')
 ---@class Debug: AceModule
-local debug = addon:GetModule('Debug')
+local debug = BetterBags:GetModule('Debug')
+---@class Config: AceModule
+local config = BetterBags:GetModule('Config')
+
+function addon:OnInitialize()
+	---@class Profile
+	local profile = {
+		FilterGenericUse = false,
+		FilterToys = true,
+		FilterAppearance = true,
+		CreateableItem = true
+	}
+
+	--Setup DB
+	DataBase = LibStub('AceDB-3.0'):New('SpartanUIDB', {profile = profile}, true)
+
+	DB = DataBase.profile
+
+	--Setup Options
+	local options = {
+		FilterGenericUse = {
+			type = 'toggle',
+			width = 'full',
+			order = 0,
+			name = 'Filter Generic `Use:` Items',
+			desc = 'Filter all items that have a "Use" effect',
+			get = function()
+				return DB.FilterGenericUse
+			end,
+			set = function(_, value)
+				DB.FilterGenericUse = value
+			end
+		},
+		FilterToys = {
+			type = 'toggle',
+			width = 'full',
+			order = 1,
+			name = 'Filter Toys',
+			desc = 'Filter all items with `' .. ITEM_TOY_ONUSE .. '` in the tooltip',
+			get = function()
+				return DB.FilterToys
+			end,
+			set = function(_, value)
+				DB.FilterToys = value
+			end
+		},
+		FilterAppearance = {
+			type = 'toggle',
+			width = 'full',
+			order = 2,
+			name = 'Filter Appearance Items',
+			desc = 'Filter all items with `' .. ITEM_COSMETIC_LEARN .. '` in the tooltip',
+			get = function()
+				return DB.FilterAppearance
+			end,
+			set = function(_, value)
+				DB.FilterAppearance = value
+			end
+		},
+		CreateableItem = {
+			type = 'toggle',
+			width = 'full',
+			order = 3,
+			name = 'Filter Createable Items',
+			desc = 'Filter all items with `' .. ITEM_CREATE_LOOT_SPEC_ITEM .. '` in the tooltip',
+			get = function()
+				return DB.CreateableItem
+			end,
+			set = function(_, value)
+				DB.CreateableItem = value
+			end
+		}
+	}
+
+	config:AddPluginConfig('Openable', options)
+end
 
 local function Log(msg)
 	debug:Log('Openable', msg)
 end
 
 local Tooltip = CreateFrame('GameTooltip', 'BBOpenable', nil, 'GameTooltipTemplate')
+local PREFIX = '|cff2beefd'
 local OPENABLE_CATEGORY_TITLE = '|cff2beefd Openable'
-local LOCKBOXES_CATEGORY_TITLE = '|cff2beefd Lockboxes'
-local TRANSMOG_CATEGORY_TITLE = '|cff2beefd Lockboxes'
 
 local SearchItems = {
 	'Open the container',
 	'Use: Open',
-	ITEM_OPENABLE,
-	ITEM_CREATE_LOOT_SPEC_ITEM,
-	-- ITEM_SPELL_TRIGGER_ONUSE,
-	ITEM_TOY_ONUSE
+	ITEM_OPENABLE
 }
 
 ---@param data ItemData
@@ -45,14 +121,32 @@ local function filter(data)
 			end
 		end
 
-		-- Check for ITEM_COSMETIC_LEARN
 		if LineText == ITEM_COSMETIC_LEARN then
-			return TRANSMOG_CATEGORY_TITLE
+			return PREFIX .. 'Cosmetics'
 		end
 
-		-- Check for LOCKED
+		-- Remove (%s). from ITEM_CREATE_LOOT_SPEC_ITEM
+		local CreateItemString = ITEM_CREATE_LOOT_SPEC_ITEM:gsub(' %(%%s%)%.', '')
+		if DB.CreateableItem then
+			if string.find(LineText, CreateItemString) then
+				return PREFIX .. 'Createable Items'
+			end
+		end
+
 		if LineText == LOCKED then
-			return LOCKBOXES_CATEGORY_TITLE
+			return PREFIX .. 'Lockboxes'
+		end
+
+		if DB.FilterGenericUse then
+			if string.find(LineText, ITEM_TOY_ONUSE) then
+				return PREFIX .. 'Toys'
+			end
+		end
+
+		if DB.FilterGenericUse then
+			if string.find(LineText, ITEM_SPELL_TRIGGER_ONUSE) then
+				return PREFIX .. 'Generic Use Items'
+			end
 		end
 	end
 end
