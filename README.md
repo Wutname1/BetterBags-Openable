@@ -8,18 +8,35 @@
 
 BetterBags Openable is an addon for World of Warcraft that categorizes items in your bags based on specific filters. This addon helps in organizing your bag by filtering and categorizing items like Toys, Appearance Items, Createable Items, and more.
 
-## Features
 
-You can access the configuration through the BetterBags addon configuration panel. Here are the available options:
+Overview
+--------
 
-- **Filter Generic `Use:` Items**: Enable or disable filtering of generic use items. **Default is disabled.**
-- **Filter Toys**: Enable or disable filtering of toy items.
-- **Filter Appearance Items**: Enable or disable filtering of appearance items.
-- **Filter Createable Items**: Enable or disable filtering of createable items.
+BetterBags Openable categorizes items in your bags based on specific filters. This addon helps in organizing your bag by filtering and categorizing items like Toys, Appearance Items, Creatable Items, and more.
 
-## Usage
+## Features and Usage
 
-Upon installation, the addon will automatically categorize items in your bags based on the following filters. You can configure the filters via the addon configuration menu.
+You can access the configuration through the BetterBags addon configuration panel. Here are the available options and their categories:
+
+**Filter Toys:**
+  - Tooltip Text Searched For: "Use: Adds this toy to your Toy Box."
+
+**Filter Appearance Items:**
+  - Tooltip text is searched for "Use: Add this appearance to your collection."
+
+**Filter Creatable Items:**
+  - Tooltip text is searched for "Use: Create a soulbound item appropriate for your loot specialization."
+  
+**Openable Items:**
+- Tooltip text is searched for "Open the container", "Use: Open", "Right Click to Open."
+  
+**Lockboxes:**
+- Tooltip text is searched for "Locked."
+
+**Filter Generic on Use Items:** (Default is disabled)
+  - Tooltip text is searched for "Use:"
+  - All other filters will be checked first. If this option is enabled, it will be used as a final catch for anything that does not fit elsewhere.
+
 
 ## Categories and Filters
 
@@ -31,13 +48,3 @@ Upon installation, the addon will automatically categorize items in your bags ba
 | Lockboxes         | "Locked"                                                                | Items that are locked.             |
 | Toys              | "Use: Adds this toy to your Toy Box."                                   | Items classified as toys.          |
 | Generic Use Items | "Use:"                                                                  | Items with a generic "Use" effect. |
-
-## Debugging
-
-The addon includes logging functionality to help with debugging. Logs can be viewed in-game to understand the filtering process.
-
-## License
-
-This addon is licensed under the MIT License. Feel free to contribute to the development and report any issues or suggestions.
-
-Enjoy a more organized bag with BetterBags Openable!
