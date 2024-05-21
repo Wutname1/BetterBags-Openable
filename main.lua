@@ -12,78 +12,80 @@ local debug = BetterBags:GetModule('Debug')
 ---@class Config: AceModule
 local config = BetterBags:GetModule('Config')
 
-function addon:OnInitialize()
-	---@class Profile
-	local profile = {
-		FilterGenericUse = false,
-		FilterToys = true,
-		FilterAppearance = true,
-		CreatableItem = true
+---@class Profile
+local profile = {
+	FilterGenericUse = false,
+	FilterToys = true,
+	FilterAppearance = true,
+	CreatableItem = true
+}
+
+--Create a Temp Frame
+local frame = CreateFrame('Frame', 'BetterBagsOpenableFrame')
+
+--Setup DB
+DataBase = LibStub('AceDB-3.0'):New('BetterBagsOpenableDB', {profile = profile}, true)
+
+DB = DataBase.profile
+frame.DB = DB
+
+--Setup Options
+local options = {
+	FilterGenericUse = {
+		type = 'toggle',
+		width = 'full',
+		order = 0,
+		name = 'Filter Generic `Use:` Items',
+		desc = 'Filter all items that have a "Use" effect',
+		get = function()
+			return DB.FilterGenericUse
+		end,
+		set = function(_, value)
+			DB.FilterGenericUse = value
+		end
+	},
+	FilterToys = {
+		type = 'toggle',
+		width = 'full',
+		order = 1,
+		name = 'Filter Toys',
+		desc = 'Filter all items with `' .. ITEM_TOY_ONUSE .. '` in the tooltip',
+		get = function()
+			return DB.FilterToys
+		end,
+		set = function(_, value)
+			DB.FilterToys = value
+		end
+	},
+	FilterAppearance = {
+		type = 'toggle',
+		width = 'full',
+		order = 2,
+		name = 'Filter Appearance Items',
+		desc = 'Filter all items with `' .. ITEM_COSMETIC_LEARN .. '` in the tooltip',
+		get = function()
+			return DB.FilterAppearance
+		end,
+		set = function(_, value)
+			DB.FilterAppearance = value
+		end
+	},
+	CreatableItem = {
+		type = 'toggle',
+		width = 'full',
+		order = 3,
+		name = 'Filter Creatable Items',
+		desc = 'Filter all items with `' .. ITEM_CREATE_LOOT_SPEC_ITEM .. '` in the tooltip',
+		get = function()
+			return DB.CreatableItem
+		end,
+		set = function(_, value)
+			DB.CreatableItem = value
+		end
 	}
+}
 
-	--Setup DB
-	DataBase = LibStub('AceDB-3.0'):New('SpartanUIDB', {profile = profile}, true)
-
-	DB = DataBase.profile
-
-	--Setup Options
-	local options = {
-		FilterGenericUse = {
-			type = 'toggle',
-			width = 'full',
-			order = 0,
-			name = 'Filter Generic `Use:` Items',
-			desc = 'Filter all items that have a "Use" effect',
-			get = function()
-				return DB.FilterGenericUse
-			end,
-			set = function(_, value)
-				DB.FilterGenericUse = value
-			end
-		},
-		FilterToys = {
-			type = 'toggle',
-			width = 'full',
-			order = 1,
-			name = 'Filter Toys',
-			desc = 'Filter all items with `' .. ITEM_TOY_ONUSE .. '` in the tooltip',
-			get = function()
-				return DB.FilterToys
-			end,
-			set = function(_, value)
-				DB.FilterToys = value
-			end
-		},
-		FilterAppearance = {
-			type = 'toggle',
-			width = 'full',
-			order = 2,
-			name = 'Filter Appearance Items',
-			desc = 'Filter all items with `' .. ITEM_COSMETIC_LEARN .. '` in the tooltip',
-			get = function()
-				return DB.FilterAppearance
-			end,
-			set = function(_, value)
-				DB.FilterAppearance = value
-			end
-		},
-		CreatableItem = {
-			type = 'toggle',
-			width = 'full',
-			order = 3,
-			name = 'Filter Creatable Items',
-			desc = 'Filter all items with `' .. ITEM_CREATE_LOOT_SPEC_ITEM .. '` in the tooltip',
-			get = function()
-				return DB.CreatableItem
-			end,
-			set = function(_, value)
-				DB.CreatableItem = value
-			end
-		}
-	}
-
-	config:AddPluginConfig('Openable', options)
-end
+config:AddPluginConfig('Openable', options)
 
 local function Log(msg)
 	debug:Log('Openable', msg)
@@ -127,26 +129,20 @@ local function filter(data)
 
 		-- Remove (%s). from ITEM_CREATE_LOOT_SPEC_ITEM
 		local CreateItemString = ITEM_CREATE_LOOT_SPEC_ITEM:gsub(' %(%%s%)%.', '')
-		if DB.CreatableItem then
-			if string.find(LineText, CreateItemString) then
-				return PREFIX .. 'Creatable Items'
-			end
+		if DB.CreatableItem and string.find(LineText, CreateItemString) then
+			return PREFIX .. 'Creatable Items'
 		end
 
 		if LineText == LOCKED then
 			return PREFIX .. 'Lockboxes'
 		end
 
-		if DB.FilterGenericUse then
-			if string.find(LineText, ITEM_TOY_ONUSE) then
-				return PREFIX .. 'Toys'
-			end
+		if DB.FilterToys and LineText == ITEM_TOY_ONUSE then
+			return PREFIX .. 'Toys'
 		end
 
-		if DB.FilterGenericUse then
-			if string.find(LineText, ITEM_SPELL_TRIGGER_ONUSE) then
-				return PREFIX .. 'Generic Use Items'
-			end
+		if DB.FilterGenericUse and string.find(LineText, ITEM_SPELL_TRIGGER_ONUSE) then
+			return PREFIX .. 'Generic Use Items'
 		end
 	end
 end
