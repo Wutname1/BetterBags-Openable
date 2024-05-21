@@ -6,6 +6,7 @@
 ## Author: wutname1
 ## X-Category: Bags & Inventory
 ## X-Curse-Project-ID: 1021681
+## X-Wago-ID: aNevMb62
 ## X-Github: https://github.com/Wutname1/BetterBags-Openable
 ## SavedVariables: BetterBagsOpenableDB
 ## Dependencies: BetterBags

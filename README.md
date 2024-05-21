@@ -1,4 +1,4 @@
-# BetterBags - Openable Filters
+# BetterBags - Openable Items
 
 [![Issues](https://img.shields.io/github/issues/wutname1/BetterBags-Openable?style=for-the-badge)](https://github.com/Wutname1/BetterBags-Openable/issues)
 [![Discord](https://img.shields.io/discord/265564257347829771.svg?logo=discord&style=for-the-badge)](https://discord.gg/Qc9TRBv)
@@ -6,7 +6,7 @@
 
 ## Overview
 
-BetterBags Openable categorizes items in your bags based on specific filters. This addon helps in organizing your bag by filtering and categorizing items like Toys, Appearance Items, Creatable Items, and more.
+BetterBags Openable Items helps in organizing your bag by filtering and categorizing items like Toys, Appearance Items, Creatable Items, and more.
 
 ![Example sort](https://media.forgecdn.net/attachments/871/663/example.png)
 
