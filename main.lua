@@ -117,7 +117,7 @@ local function filter(data)
 			end
 		end
 
-		if LineText == ITEM_COSMETIC_LEARN then
+		if DB.FilterAppearance and (string.find(LineText, ITEM_COSMETIC_LEARN) or string.find(LineText, 'Use: Collect the appearance')) then
 			return PREFIX .. 'Cosmetics'
 		end
 
@@ -131,7 +131,7 @@ local function filter(data)
 			return PREFIX .. 'Lockboxes'
 		end
 
-		if DB.FilterToys and LineText == ITEM_TOY_ONUSE then
+		if DB.FilterToys and string.find(LineText, ITEM_TOY_ONUSE) then
 			return PREFIX .. 'Toys'
 		end
 
