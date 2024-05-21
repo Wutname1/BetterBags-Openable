@@ -1,7 +1,6 @@
 local addonName, root = ... --[[@type string, table]]
 ---@class BetterBagsOpenable: AceModule AceDB
 local addon = LibStub('AceAddon-3.0'):NewAddon(root, addonName)
-local DataBase, DB = {}, {}
 
 ---@class BetterBags: AceAddon
 local BetterBags = LibStub('AceAddon-3.0'):GetAddon('BetterBags')
@@ -20,14 +19,9 @@ local profile = {
 	CreatableItem = true
 }
 
---Create a Temp Frame
-local frame = CreateFrame('Frame', 'BetterBagsOpenableFrame')
-
 --Setup DB
-DataBase = LibStub('AceDB-3.0'):New('BetterBagsOpenableDB', {profile = profile}, true)
-
-DB = DataBase.profile
-frame.DB = DB
+local DataBase = LibStub('AceDB-3.0'):New('BetterBagsOpenableDB', {profile = profile}, true)
+local DB = DataBase.profile ---@type Profile
 
 --Setup Options
 local options = {
