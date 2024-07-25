@@ -209,4 +209,4 @@ local function filter(data)
 	end
 end
 
-categories:RegisterCategoryFunction('reg', filter)
+categories:RegisterCategoryFunction('libs-openable', filter)
