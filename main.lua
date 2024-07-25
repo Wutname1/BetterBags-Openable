@@ -10,6 +10,10 @@ local categories = BetterBags:GetModule('Categories')
 local debug = BetterBags:GetModule('Debug')
 ---@class Config: AceModule
 local config = BetterBags:GetModule('Config')
+local devMode = false
+--@do-not-package@
+devMode = true
+--@end-do-not-package@
 
 ---@class Profile
 local profile = {
@@ -135,6 +139,9 @@ local options = {
 config:AddPluginConfig('Openable', options)
 
 local function Log(msg)
+	if not devMode then
+		return
+	end
 	debug:Log('Openable', msg)
 end
 
