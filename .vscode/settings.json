@@ -8,5 +8,6 @@
     "ITEM_SPELL_TRIGGER_ONUSE",
     "MOUNT",
     "QUEST_REPUTATION_REWARD_TOOLTIP"
-  ]
+  ],
+  "Lua.diagnostics.disable": ["param-type-mismatch", "inject-field"]
 }

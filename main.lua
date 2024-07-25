@@ -159,7 +159,7 @@ local function filter(data)
 	Log('NumLines ' .. Tooltip:NumLines())
 
 	for i = 1, Tooltip:NumLines() do
-		line = _G['BBOpenableTextLeft' .. i]
+		local line = _G['BBOpenableTextLeft' .. i]
 		local LineText = line:GetText()
 		Log(LineText)
 
