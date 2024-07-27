@@ -148,6 +148,13 @@ local function Log(msg)
 	debug:Log('Openable', msg)
 end
 
+function RGBToHex(rgbTable)
+	local r = math.floor(rgbTable.r * 255 + 0.5)
+	local g = math.floor(rgbTable.g * 255 + 0.5)
+	local b = math.floor(rgbTable.b * 255 + 0.5)
+	return string.format('|cFF%02X%02X%02X', r, g, b)
+end
+
 local Tooltip = CreateFrame('GameTooltip', 'BBOpenable', nil, 'GameTooltipTemplate')
 local PREFIX = '|cff2beefd'
 local OPENABLE_CATEGORY_TITLE = '|cff2beefd Openable'
