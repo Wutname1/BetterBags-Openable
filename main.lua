@@ -17,6 +17,7 @@ devMode = true
 
 ---@class Profile
 local profile = {
+	CategoryColor = {r = 0.17, g = 0.93, b = 0.93, a = 1},
 	FilterGenericUse = false,
 	FilterToys = true,
 	FilterAppearance = true,
@@ -25,9 +26,11 @@ local profile = {
 	CreatableItem = true
 }
 
---Setup DB
-local DataBase = LibStub('AceDB-3.0'):New('BetterBagsOpenableDB', {profile = profile}, true)
-local DB = DataBase.profile ---@type Profile
+function addon:OnInitialize()
+	--Setup DB
+	self.DataBase = LibStub('AceDB-3.0'):New('BetterBagsOpenableDB', {profile = profile}, true)
+	self.DB = self.DataBase.profile ---@type Profile
+end
 
 --Get Locale
 local REP_USE_TEXT = QUEST_REPUTATION_REWARD_TOOLTIP:match('%%d%s*(.-)%s*%%s')
@@ -63,10 +66,10 @@ local options = {
 		name = 'Filter Generic `Use:` Items',
 		desc = 'Filter all items that have a "Use" effect',
 		get = function()
-			return DB.FilterGenericUse
+			return addon.DB.FilterGenericUse
 		end,
 		set = function(_, value)
-			DB.FilterGenericUse = value
+			addon.DB.FilterGenericUse = value
 		end
 	},
 	FilterToys = {
@@ -76,10 +79,10 @@ local options = {
 		name = 'Filter Toys',
 		desc = 'Filter all items with `' .. ITEM_TOY_ONUSE .. '` in the tooltip',
 		get = function()
-			return DB.FilterToys
+			return addon.DB.FilterToys
 		end,
 		set = function(_, value)
-			DB.FilterToys = value
+			addon.DB.FilterToys = value
 		end
 	},
 	FilterMounts = {
@@ -89,10 +92,10 @@ local options = {
 		name = 'Filter Mounts',
 		desc = 'Filter all items with `' .. GetLocaleString('Use: Teaches you how to summon this mount') .. '` in the tooltip',
 		get = function()
-			return DB.FilterMounts
+			return addon.DB.FilterMounts
 		end,
 		set = function(_, value)
-			DB.FilterMounts = value
+			addon.DB.FilterMounts = value
 		end
 	},
 	FilterAppearance = {
@@ -102,10 +105,10 @@ local options = {
 		name = 'Filter Appearance Items',
 		desc = 'Filter all items with `' .. ITEM_COSMETIC_LEARN .. '` in the tooltip',
 		get = function()
-			return DB.FilterAppearance
+			return addon.DB.FilterAppearance
 		end,
 		set = function(_, value)
-			DB.FilterAppearance = value
+			addon.DB.FilterAppearance = value
 		end
 	},
 	FilterRepGain = {
@@ -115,10 +118,10 @@ local options = {
 		name = 'Reputaion Gain Items',
 		desc = 'Filter all items with `' .. ITEM_SPELL_TRIGGER_ONUSE .. '` and `' .. REP_USE_TEXT .. '` in the tooltip',
 		get = function()
-			return DB.FilterRepGain
+			return addon.DB.FilterRepGain
 		end,
 		set = function(_, value)
-			DB.FilterRepGain = value
+			addon.DB.FilterRepGain = value
 		end
 	},
 	CreatableItem = {
@@ -128,10 +131,10 @@ local options = {
 		name = 'Filter Creatable Items',
 		desc = 'Filter all items with `' .. ITEM_CREATE_LOOT_SPEC_ITEM .. '` in the tooltip',
 		get = function()
-			return DB.CreatableItem
+			return addon.DB.CreatableItem
 		end,
 		set = function(_, value)
-			DB.CreatableItem = value
+			addon.DB.CreatableItem = value
 		end
 	}
 }
@@ -177,13 +180,13 @@ local function filter(data)
 			end
 		end
 
-		if DB.FilterAppearance and (string.find(LineText, ITEM_COSMETIC_LEARN) or string.find(LineText, GetLocaleString('Use: Collect the appearance'))) then
+		if addon.DB.FilterAppearance and (string.find(LineText, ITEM_COSMETIC_LEARN) or string.find(LineText, GetLocaleString('Use: Collect the appearance'))) then
 			return PREFIX .. 'Cosmetics'
 		end
 
 		-- Remove (%s). from ITEM_CREATE_LOOT_SPEC_ITEM
 		local CreateItemString = ITEM_CREATE_LOOT_SPEC_ITEM:gsub(' %(%%s%)%.', '')
-		if DB.CreatableItem and string.find(LineText, CreateItemString) then
+		if addon.DB.CreatableItem and (string.find(LineText, CreateItemString) or string.find(LineText, 'Create a soulbound item for your class')) then
 			return PREFIX .. 'Creatable Items'
 		end
 
@@ -191,19 +194,19 @@ local function filter(data)
 			return PREFIX .. 'Lockboxes'
 		end
 
-		if DB.FilterToys and string.find(LineText, ITEM_TOY_ONUSE) then
+		if addon.DB.FilterToys and string.find(LineText, ITEM_TOY_ONUSE) then
 			return PREFIX .. 'Toys'
 		end
 
-		if DB.FilterRepGain and string.find(LineText, REP_USE_TEXT) and string.find(LineText, ITEM_SPELL_TRIGGER_ONUSE) then
+		if addon.DB.FilterRepGain and string.find(LineText, REP_USE_TEXT) and string.find(LineText, ITEM_SPELL_TRIGGER_ONUSE) then
 			return PREFIX .. 'Reputation'
 		end
 
-		if DB.FilterMounts and string.find(LineText, GetLocaleString('Use: Teaches you how to summon this mount')) then
+		if addon.DB.FilterMounts and (string.find(LineText, GetLocaleString('Use: Teaches you how to summon this mount')) or string.find(LineText, 'Drakewatcher Manuscript')) then
 			return PREFIX .. 'Mounts'
 		end
 
-		if DB.FilterGenericUse and string.find(LineText, ITEM_SPELL_TRIGGER_ONUSE) then
+		if addon.DB.FilterGenericUse and string.find(LineText, ITEM_SPELL_TRIGGER_ONUSE) and not (data.itemInfo.isCraftingReagent) then
 			return PREFIX .. 'Generic Use Items'
 		end
 	end
