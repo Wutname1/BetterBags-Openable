@@ -167,6 +167,10 @@ local SearchItems = {
 
 ---@param data ItemData
 local function filter(data)
+	if data.itemInfo.isCraftingReagent or (data.itemInfo.itemType == 'Consumable' or data.itemInfo.itemSubType == 'Consumables') or data.itemInfo.itemType == 'Quest' then
+		return
+	end
+
 	Tooltip:ClearLines()
 	Log('Filtering ' .. data.itemHash)
 	Log('Bag ID: ' .. data.bagid .. ' Slot ID: ' .. data.slotid)
