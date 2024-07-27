@@ -58,88 +58,120 @@ function GetLocaleString(key)
 end
 
 --Setup Options
+--we define a full options table to make linter happy.
+---@type AceConfig.OptionsTable
 local options = {
-	FilterGenericUse = {
-		type = 'toggle',
-		width = 'full',
-		order = 0,
-		name = 'Filter Generic `Use:` Items',
-		desc = 'Filter all items that have a "Use" effect',
-		get = function()
-			return addon.DB.FilterGenericUse
-		end,
-		set = function(_, value)
-			addon.DB.FilterGenericUse = value
-		end
-	},
-	FilterToys = {
-		type = 'toggle',
-		width = 'full',
-		order = 1,
-		name = 'Filter Toys',
-		desc = 'Filter all items with `' .. ITEM_TOY_ONUSE .. '` in the tooltip',
-		get = function()
-			return addon.DB.FilterToys
-		end,
-		set = function(_, value)
-			addon.DB.FilterToys = value
-		end
-	},
-	FilterMounts = {
-		type = 'toggle',
-		width = 'full',
-		order = 1,
-		name = 'Filter Mounts',
-		desc = 'Filter all items with `' .. GetLocaleString('Use: Teaches you how to summon this mount') .. '` in the tooltip',
-		get = function()
-			return addon.DB.FilterMounts
-		end,
-		set = function(_, value)
-			addon.DB.FilterMounts = value
-		end
-	},
-	FilterAppearance = {
-		type = 'toggle',
-		width = 'full',
-		order = 2,
-		name = 'Filter Appearance Items',
-		desc = 'Filter all items with `' .. ITEM_COSMETIC_LEARN .. '` in the tooltip',
-		get = function()
-			return addon.DB.FilterAppearance
-		end,
-		set = function(_, value)
-			addon.DB.FilterAppearance = value
-		end
-	},
-	FilterRepGain = {
-		type = 'toggle',
-		width = 'full',
-		order = 2,
-		name = 'Reputaion Gain Items',
-		desc = 'Filter all items with `' .. ITEM_SPELL_TRIGGER_ONUSE .. '` and `' .. REP_USE_TEXT .. '` in the tooltip',
-		get = function()
-			return addon.DB.FilterRepGain
-		end,
-		set = function(_, value)
-			addon.DB.FilterRepGain = value
-		end
-	},
-	CreatableItem = {
-		type = 'toggle',
-		width = 'full',
-		order = 3,
-		name = 'Filter Creatable Items',
-		desc = 'Filter all items with `' .. ITEM_CREATE_LOOT_SPEC_ITEM .. '` in the tooltip',
-		get = function()
-			return addon.DB.CreatableItem
-		end,
-		set = function(_, value)
-			addon.DB.CreatableItem = value
-		end
+	name = 'Openable',
+	type = 'group',
+	args = {
+		Color = {
+			type = 'color',
+			order = 0,
+			name = 'Color',
+			desc = 'Change the color of the category. Reload UI to see changes.',
+			get = function()
+				return addon.DB.CategoryColor.r, addon.DB.CategoryColor.g, addon.DB.CategoryColor.b
+			end,
+			set = function(_, r, g, b)
+				addon.DB.CategoryColor = {r = r, g = g, b = b, a = 1}
+			end
+		},
+		Modes = {
+			type = 'group',
+			inline = true,
+			name = 'Filter Modes',
+			order = 10,
+			set = function(info, value)
+				addon.DB[info[#info]] = value
+			end,
+			get = function(info)
+				return addon.DB[info[#info]]
+			end,
+			args = {
+				FilterGenericUse = {
+					type = 'toggle',
+					width = 'full',
+					order = 0,
+					name = 'Filter Generic `Use:` Items',
+					desc = 'Filter all items that have a "Use" effect'
+					-- get = function()
+					-- 	return addon.DB.FilterGenericUse
+					-- end,
+					-- set = function(_, value)
+					-- 	addon.DB.FilterGenericUse = value
+					-- end
+				},
+				FilterToys = {
+					type = 'toggle',
+					width = 'full',
+					order = 1,
+					name = 'Filter Toys',
+					desc = 'Filter all items with `' .. ITEM_TOY_ONUSE .. '` in the tooltip'
+					-- get = function()
+					-- 	return addon.DB.FilterToys
+					-- end,
+					-- set = function(_, value)
+					-- 	addon.DB.FilterToys = value
+					-- end
+				},
+				FilterMounts = {
+					type = 'toggle',
+					width = 'full',
+					order = 1,
+					name = 'Filter Mounts',
+					desc = 'Filter all items with `' .. GetLocaleString('Use: Teaches you how to summon this mount') .. '` in the tooltip'
+					-- get = function()
+					-- 	return addon.DB.FilterMounts
+					-- end,
+					-- set = function(_, value)
+					-- 	addon.DB.FilterMounts = value
+					-- end
+				},
+				FilterAppearance = {
+					type = 'toggle',
+					width = 'full',
+					order = 2,
+					name = 'Filter Appearance Items',
+					desc = 'Filter all items with `' .. ITEM_COSMETIC_LEARN .. '` in the tooltip'
+					-- get = function()
+					-- 	return addon.DB.FilterAppearance
+					-- end,
+					-- set = function(_, value)
+					-- 	addon.DB.FilterAppearance = value
+					-- end
+				},
+				FilterRepGain = {
+					type = 'toggle',
+					width = 'full',
+					order = 2,
+					name = 'Reputaion Gain Items',
+					desc = 'Filter all items with `' .. ITEM_SPELL_TRIGGER_ONUSE .. '` and `' .. REP_USE_TEXT .. '` in the tooltip'
+					-- get = function()
+					-- 	return addon.DB.FilterRepGain
+					-- end,
+					-- set = function(_, value)
+					-- 	addon.DB.FilterRepGain = value
+					-- end
+				},
+				CreatableItem = {
+					type = 'toggle',
+					width = 'full',
+					order = 3,
+					name = 'Filter Creatable Items',
+					desc = 'Filter all items with `' .. ITEM_CREATE_LOOT_SPEC_ITEM .. '` in the tooltip'
+					-- get = function()
+					-- 	return addon.DB.CreatableItem
+					-- end,
+					-- set = function(_, value)
+					-- 	addon.DB.CreatableItem = value
+					-- end
+				}
+			}
+		}
 	}
 }
 
-config:AddPluginConfig('Openable', options)
+config:AddPluginConfig('Openable', options.args)
 
 local function Log(msg)
 	if not devMode then
@@ -156,8 +188,10 @@ function RGBToHex(rgbTable)
 end
 
 local Tooltip = CreateFrame('GameTooltip', 'BBOpenable', nil, 'GameTooltipTemplate')
-local PREFIX = '|cff2beefd'
-local OPENABLE_CATEGORY_TITLE = '|cff2beefd Openable'
+-- local PREFIX = '|cff2beefd'
+local function PREFIX()
+	return RGBToHex(addon.DB.CategoryColor)
+end
 
 local SearchItems = {
 	'Open the container',
@@ -187,38 +221,38 @@ local function filter(data)
 		--Search for the strings in the tooltip
 		for _, v in pairs(SearchItems) do
 			if string.find(LineText, v) then
-				return OPENABLE_CATEGORY_TITLE
+				return PREFIX() .. 'Openable'
 			end
 		end
 
 		if addon.DB.FilterAppearance and (string.find(LineText, ITEM_COSMETIC_LEARN) or string.find(LineText, GetLocaleString('Use: Collect the appearance'))) then
-			return PREFIX .. 'Cosmetics'
+			return PREFIX() .. 'Cosmetics'
 		end
 
 		-- Remove (%s). from ITEM_CREATE_LOOT_SPEC_ITEM
 		local CreateItemString = ITEM_CREATE_LOOT_SPEC_ITEM:gsub(' %(%%s%)%.', '')
 		if addon.DB.CreatableItem and (string.find(LineText, CreateItemString) or string.find(LineText, 'Create a soulbound item for your class')) then
-			return PREFIX .. 'Creatable Items'
+			return PREFIX() .. 'Creatable Items'
 		end
 
 		if LineText == LOCKED then
-			return PREFIX .. 'Lockboxes'
+			return PREFIX() .. 'Lockboxes'
 		end
 
 		if addon.DB.FilterToys and string.find(LineText, ITEM_TOY_ONUSE) then
-			return PREFIX .. 'Toys'
+			return PREFIX() .. 'Toys'
 		end
 
 		if addon.DB.FilterRepGain and string.find(LineText, REP_USE_TEXT) and string.find(LineText, ITEM_SPELL_TRIGGER_ONUSE) then
-			return PREFIX .. 'Reputation'
+			return PREFIX() .. 'Reputation'
 		end
 
 		if addon.DB.FilterMounts and (string.find(LineText, GetLocaleString('Use: Teaches you how to summon this mount')) or string.find(LineText, 'Drakewatcher Manuscript')) then
-			return PREFIX .. 'Mounts'
+			return PREFIX() .. 'Mounts'
 		end
 
-		if addon.DB.FilterGenericUse and string.find(LineText, ITEM_SPELL_TRIGGER_ONUSE) and not (data.itemInfo.isCraftingReagent) then
-			return PREFIX .. 'Generic Use Items'
+		if addon.DB.FilterGenericUse and string.find(LineText, ITEM_SPELL_TRIGGER_ONUSE) then
+			return PREFIX() .. 'Generic Use Items'
 		end
 	end
 end
