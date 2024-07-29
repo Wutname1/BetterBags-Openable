@@ -201,7 +201,8 @@ local SearchItems = {
 
 ---@param data ItemData
 local function filter(data)
-	if data.itemInfo.isCraftingReagent or (data.itemInfo.itemType == 'Consumable' or data.itemInfo.itemSubType == 'Consumables') or data.itemInfo.itemType == 'Quest' then
+	local Consumable = data.itemInfo.itemType == 'Consumable' or data.itemInfo.itemSubType == 'Consumables'
+	if data.itemInfo.isCraftingReagent or Consumable or data.itemInfo.itemType == 'Quest' or data.itemInfo.itemType == 'Armor' then
 		return
 	end
 
