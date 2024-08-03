@@ -37,15 +37,21 @@ local REP_USE_TEXT = QUEST_REPUTATION_REWARD_TOOLTIP:match('%%d%s*(.-)%s*%%s')
 local Localized = {
 	deDE = {
 		['Use: Teaches you how to summon this mount'] = 'Benutzen: Lehrt Euch, dieses Reittier herbeizurufen',
-		['Use: Collect the appearance'] = 'Benutzen: Sammelt das Aussehen'
+		['Use: Collect the appearance'] = 'Benutzen: Sammelt das Aussehen',
+		['reputation with'] = 'Ruf bei',
+		['reputation towards'] = 'Ruf bei'
 	},
 	esES = {
 		['Use: Teaches you how to summon this mount'] = 'Uso: Te enseña a invocar esta montura',
-		['Use: Collect the appearance'] = 'Uso: Recoge la apariencia'
+		['Use: Collect the appearance'] = 'Uso: Recoge la apariencia',
+		['reputation with'] = 'reputación con',
+		['reputation towards'] = 'reputación hacia'
 	},
 	frFR = {
 		['Use: Teaches you how to summon this mount'] = 'Utilisation: Vous apprend à invoquer cette monture',
-		['Use: Collect the appearance'] = "Utilisation: Collectionnez l'apparence"
+		['Use: Collect the appearance'] = "Utilisation: Collectionnez l'apparence",
+		['reputation with'] = 'réputation auprès',
+		['reputation towards'] = 'réputation envers'
 	}
 }
 
@@ -177,6 +183,7 @@ local function Log(msg)
 	if not devMode then
 		return
 	end
+	---@diagnostic disable-next-line: undefined-field
 	debug:Log('Openable', msg)
 end
 
@@ -244,7 +251,10 @@ local function filter(data)
 			return PREFIX() .. 'Toys'
 		end
 
-		if addon.DB.FilterRepGain and string.find(LineText, REP_USE_TEXT) and string.find(LineText, ITEM_SPELL_TRIGGER_ONUSE) then
+		if
+			addon.DB.FilterRepGain and (string.find(LineText, REP_USE_TEXT) or string.find(LineText, GetLocaleString('reputation towards')) or string.find(LineText, GetLocaleString('reputation with'))) and
+				string.find(LineText, ITEM_SPELL_TRIGGER_ONUSE)
+		 then
 			return PREFIX() .. 'Reputation'
 		end
 
