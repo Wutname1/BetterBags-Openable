@@ -100,12 +100,6 @@ local options = {
 					order = 0,
 					name = 'Filter Generic `Use:` Items',
 					desc = 'Filter all items that have a "Use" effect'
-					-- get = function()
-					-- 	return addon.DB.FilterGenericUse
-					-- end,
-					-- set = function(_, value)
-					-- 	addon.DB.FilterGenericUse = value
-					-- end
 				},
 				FilterToys = {
 					type = 'toggle',
@@ -113,12 +107,6 @@ local options = {
 					order = 1,
 					name = 'Filter Toys',
 					desc = 'Filter all items with `' .. ITEM_TOY_ONUSE .. '` in the tooltip'
-					-- get = function()
-					-- 	return addon.DB.FilterToys
-					-- end,
-					-- set = function(_, value)
-					-- 	addon.DB.FilterToys = value
-					-- end
 				},
 				FilterMounts = {
 					type = 'toggle',
@@ -126,12 +114,6 @@ local options = {
 					order = 1,
 					name = 'Filter Mounts',
 					desc = 'Filter all items with `' .. GetLocaleString('Use: Teaches you how to summon this mount') .. '` in the tooltip'
-					-- get = function()
-					-- 	return addon.DB.FilterMounts
-					-- end,
-					-- set = function(_, value)
-					-- 	addon.DB.FilterMounts = value
-					-- end
 				},
 				FilterAppearance = {
 					type = 'toggle',
@@ -139,12 +121,6 @@ local options = {
 					order = 2,
 					name = 'Filter Appearance Items',
 					desc = 'Filter all items with `' .. ITEM_COSMETIC_LEARN .. '` in the tooltip'
-					-- get = function()
-					-- 	return addon.DB.FilterAppearance
-					-- end,
-					-- set = function(_, value)
-					-- 	addon.DB.FilterAppearance = value
-					-- end
 				},
 				FilterRepGain = {
 					type = 'toggle',
@@ -152,12 +128,6 @@ local options = {
 					order = 2,
 					name = 'Reputaion Gain Items',
 					desc = 'Filter all items with `' .. ITEM_SPELL_TRIGGER_ONUSE .. '` and `' .. REP_USE_TEXT .. '` in the tooltip'
-					-- get = function()
-					-- 	return addon.DB.FilterRepGain
-					-- end,
-					-- set = function(_, value)
-					-- 	addon.DB.FilterRepGain = value
-					-- end
 				},
 				CreatableItem = {
 					type = 'toggle',
@@ -165,12 +135,6 @@ local options = {
 					order = 3,
 					name = 'Filter Creatable Items',
 					desc = 'Filter all items with `' .. ITEM_CREATE_LOOT_SPEC_ITEM .. '` in the tooltip'
-					-- get = function()
-					-- 	return addon.DB.CreatableItem
-					-- end,
-					-- set = function(_, value)
-					-- 	addon.DB.CreatableItem = value
-					-- end
 				}
 			}
 		}
