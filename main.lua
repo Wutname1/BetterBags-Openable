@@ -23,6 +23,7 @@ local profile = {
 	FilterAppearance = true,
 	FilterMounts = true,
 	FilterRepGain = true,
+	FilterKnowledge = true,
 	CreatableItem = true
 }
 
@@ -114,6 +115,13 @@ local options = {
 					order = 1,
 					name = 'Filter Mounts',
 					desc = 'Filter all items with `' .. GetLocaleString('Use: Teaches you how to summon this mount') .. '` in the tooltip'
+				},
+				FilterKnowledge = {
+					type = 'toggle',
+					width = 'full',
+					order = 2,
+					name = 'Knowledge',
+					desc = 'Filter all items with `study to increase` & `Knowledge` in the tooltip'
 				},
 				FilterAppearance = {
 					type = 'toggle',
@@ -213,6 +221,10 @@ local function filter(data)
 
 		if addon.DB.FilterToys and string.find(LineText, ITEM_TOY_ONUSE) then
 			return PREFIX() .. 'Toys'
+		end
+
+		if addon.DB.FilterKnowledge and (string.find(LineText, 'Knowledge') and string.find(LineText, 'Study to increase')) then
+			return PREFIX() .. 'Knowledge'
 		end
 
 		if
