@@ -23,6 +23,7 @@ local profile = {
 	FilterAppearance = true,
 	FilterMounts = true,
 	FilterRepGain = true,
+	FilterCompanion = true,
 	FilterKnowledge = true,
 	CreatableItem = true
 }
@@ -123,6 +124,13 @@ local options = {
 					name = 'Knowledge',
 					desc = 'Filter all items with `study to increase` & `Knowledge` in the tooltip'
 				},
+				FilterCompanion = {
+					type = 'toggle',
+					width = 'full',
+					order = 2,
+					name = 'Pets',
+					desc = 'Filter all items with `companion` in the tooltip'
+				},
 				FilterAppearance = {
 					type = 'toggle',
 					width = 'full',
@@ -222,6 +230,11 @@ local function filter(data)
 		if addon.DB.FilterToys and string.find(LineText, ITEM_TOY_ONUSE) then
 			return PREFIX() .. 'Toys'
 		end
+
+		if addon.DB.FilterCompanion and string.find(LineText, 'companion') then
+			return PREFIX() .. 'Pets'
+		end
+
 
 		if addon.DB.FilterKnowledge and (string.find(LineText, 'Knowledge') and string.find(LineText, 'Study to increase')) then
 			return PREFIX() .. 'Knowledge'
