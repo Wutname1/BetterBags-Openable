@@ -24,6 +24,7 @@ local profile = {
 	FilterMounts = true,
 	FilterRepGain = true,
 	FilterCompanion = true,
+	FilterCurios = true,
 	FilterKnowledge = true,
 	CreatableItem = true
 }
@@ -132,6 +133,13 @@ local options = {
 					name = 'Pets',
 					desc = 'Filter all items with `companion` in the tooltip'
 				},
+				FilterCurios = {
+					type = 'toggle',
+					width = 'full',
+					order = 2,
+					name = 'Curios',
+					desc = 'Filter all items with `Curios` in the tooltip'
+				},
 				FilterAppearance = {
 					type = 'toggle',
 					width = 'full',
@@ -191,6 +199,9 @@ local SearchItems = {
 local function filter(data)
 	local Consumable = data.itemInfo.itemType == 'Consumable' or data.itemInfo.itemSubType == 'Consumables'
 	if data.itemInfo.isCraftingReagent or Consumable or data.itemInfo.itemType == 'Quest' or data.itemInfo.itemType == 'Armor' or data.itemInfo.itemType == 'Battle Pets' then
+		if Consumable and data.itemInfo.itemSubType and string.find(data.itemInfo.itemSubType, 'Curio') and addon.DB.FilterCurios then
+			return PREFIX() .. 'Curio'
+		end
 		return
 	end
 
@@ -235,7 +246,6 @@ local function filter(data)
 		if addon.DB.FilterCompanion and string.find(LineText, 'companion') then
 			return PREFIX() .. 'Pets'
 		end
-
 
 		if addon.DB.FilterKnowledge and (string.find(LineText, 'Knowledge') and string.find(LineText, 'Study to increase')) then
 			return PREFIX() .. 'Knowledge'
