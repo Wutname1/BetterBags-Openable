@@ -35,7 +35,6 @@ function addon:OnInitialize()
 end
 
 --Get Locale
-local REP_USE_TEXT = QUEST_REPUTATION_REWARD_TOOLTIP:match('%%d%s*(.-)%s*%%s')
 local Localized = {
 	deDE = {
 		['Use: Teaches you how to summon this mount'] = 'Benutzen: Lehrt Euch, dieses Reittier herbeizurufen',
@@ -64,6 +63,8 @@ function GetLocaleString(key)
 	end
 	return key
 end
+
+local REP_USE_TEXT = QUEST_REPUTATION_REWARD_TOOLTIP:match('%%d%s*(.-)%s*%%s') or GetLocaleString('reputation with')
 
 --Setup Options
 --we define a full options table to make linter happy.
