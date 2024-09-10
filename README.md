@@ -41,11 +41,28 @@ You can access the configuration through the BetterBags addon configuration pane
 
 ## Categories and Filters
 
-| Category Name     | Tooltip Text Searched For                                               | Description                        |
-| ----------------- | ----------------------------------------------------------------------- | ---------------------------------- |
-| Openable          | "Open the container", "Use: Open", "\<Right Click to Open\>"            | Items that can be opened.          |
-| Cosmetics         | "Use: Add this appearance to your collection."                          | Appearance items.                  |
-| Createable Items  | "Use: Create a soulbound item appropriate for your loot specialization" | Items that can be created.         |
-| Lockboxes         | "Locked"                                                                | Items that are locked.             |
-| Toys              | "Use: Adds this toy to your Toy Box."                                   | Items classified as toys.          |
-| Generic Use Items | "Use:"                                                                  | Items with a generic "Use" effect. |
+| Category Name     | Description                       | Default State |
+| ----------------- | --------------------------------- | ------------- |
+| Openable          | Items that can be opened          | Enabled       |
+| Cosmetics         | Appearance items                  | Enabled       |
+| Creatable Items   | Items that can be created         | Enabled       |
+| Lockboxes         | Items that are locked             | Enabled       |
+| Toys              | Items classified as toys          | Enabled       |
+| Mounts            | Mount items                       | Enabled       |
+| Knowledge         | Items that increase knowledge     | Enabled       |
+| Pets              | Companion pet items               | Enabled       |
+| Curios            | Curio items                       | Enabled       |
+| Reputation        | Items that grant reputation       | Enabled       |
+| Generic Use Items | Items with a generic "Use" effect | Disabled      |
+
+## Localization
+
+The addon supports localization for German (deDE), Spanish (esES), and French (frFR) languages for specific tooltip texts. Further Localization is coming soon.
+
+## Contributing
+
+If you encounter any issues or have suggestions for improvements, please open an issue on our [GitHub repository](https://github.com/Wutname1/BetterBags-Openable/issues).
+
+## Support
+
+For support or discussions, visit the SpartanUI [Discord server](https://discord.gg/Qc9TRBv).
