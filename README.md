@@ -1,4 +1,4 @@
-# BetterBags - Openable Items
+# BetterBags - Openable Filters
 
 [![Issues](https://img.shields.io/github/issues/wutname1/BetterBags-Openable?style=for-the-badge)](https://github.com/Wutname1/BetterBags-Openable/issues)
 [![Discord](https://img.shields.io/discord/265564257347829771.svg?logo=discord&style=for-the-badge)](https://discord.gg/Qc9TRBv)
@@ -12,32 +12,10 @@ BetterBags Openable Items helps in organizing your bag by filtering and categori
 
 ## Features and Usage
 
-You can access the configuration through the BetterBags addon configuration panel. Here are the available options and their categories:
+You can access the configuration through the BetterBags addon configuration panel. Here are the available options:
 
-**Filter Toys:**
-
-- Tooltip Text Searched For: "Use: Adds this toy to your Toy Box."
-
-**Filter Appearance Items:**
-
-- Tooltip text is searched for "Use: Add this appearance to your collection."
-
-**Filter Creatable Items:**
-
-- Tooltip text is searched for "Use: Create a soulbound item appropriate for your loot specialization."
-
-**Openable Items:**
-
-- Tooltip text is searched for "Open the container", "Use: Open", "Right Click to Open."
-
-**Lockboxes:**
-
-- Tooltip text is searched for "Locked."
-
-**Filter Generic on Use Items:** (Default is disabled)
-
-- Tooltip text is searched for "Use:"
-- All other filters will be checked first. If this option is enabled, it will be used as a final catch for anything that does not fit elsewhere.
+- Color: Change the color of the category. Reload UI to see changes.
+- Filter Modes: Toggle various filtering options for different item types.
 
 ## Categories and Filters
 
