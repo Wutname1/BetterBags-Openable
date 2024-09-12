@@ -265,6 +265,6 @@ function addon:OnInitialize()
 	self.DataBase = LibStub('AceDB-3.0'):New('BetterBagsOpenableDB', {profile = profile}, true)
 	self.DB = self.DataBase.profile ---@type Profile
 
-	-- config:AddPluginConfig('Openable', options.args)
+	config:AddPluginConfig('Openable', options)
 	categories:RegisterCategoryFunction('libs-openable', filter)
 end
