@@ -29,12 +29,6 @@ local profile = {
 	CreatableItem = true
 }
 
-function addon:OnInitialize()
-	--Setup DB
-	self.DataBase = LibStub('AceDB-3.0'):New('BetterBagsOpenableDB', {profile = profile}, true)
-	self.DB = self.DataBase.profile ---@type Profile
-end
-
 --Get Locale
 local Localized = {
 	deDE = {
@@ -166,8 +160,6 @@ local options = {
 	}
 }
 
-config:AddPluginConfig('Openable', options.args)
-
 local function Log(msg)
 	if not devMode then
 		return
@@ -268,4 +260,11 @@ local function filter(data)
 	end
 end
 
-categories:RegisterCategoryFunction('libs-openable', filter)
+function addon:OnInitialize()
+	--Setup DB
+	self.DataBase = LibStub('AceDB-3.0'):New('BetterBagsOpenableDB', {profile = profile}, true)
+	self.DB = self.DataBase.profile ---@type Profile
+
+	-- config:AddPluginConfig('Openable', options.args)
+	categories:RegisterCategoryFunction('libs-openable', filter)
+end
