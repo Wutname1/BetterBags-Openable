@@ -1,13 +1,42 @@
 local const = {}
 
+---@enum BindingScope  -- similar. but distinct from ItemBind
+const.BINDING_SCOPE = {
+	UNKNOWN = -1,
+	NONBINDING = 0,
+	BOUND = 1,
+	BOE = 2,
+	BOU = 3,
+	QUEST = 4,
+	SOULBOUND = 5,
+	REFUNDABLE = 6,
+	ACCOUNT = 7,
+	BNET = 8,
+	WUE = 9
+}
+
+---@class (exact) TransmogInfo
+---@field transmogInfoMixin? ItemTransmogInfoMixin
+---@field itemAppearanceID number
+---@field itemModifiedAppearanceID number
+---@field hasTransmog boolean
+
+---@class (exact) BindingInfo
+---@field binding BindingScope
+---@field bound boolean
+---@
 -- ItemData contains all the information about an item in a bag or bank.
 ---@class (exact) ItemData
 ---@field basic boolean
 ---@field itemInfo ExpandedItemInfo
 ---@field containerInfo ContainerItemInfo
 ---@field questInfo ItemQuestInfo
+---@field transmogInfo TransmogInfo
+---@field bindingInfo BindingInfo
 ---@field bagid number
 ---@field slotid number
+---@field inventoryType number
+---@field inventorySlots number[]
 ---@field slotkey string
 ---@field isItemEmpty boolean
 ---@field kind BagKind
