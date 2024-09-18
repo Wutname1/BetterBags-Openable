@@ -190,7 +190,11 @@ local SearchItems = {
 ---@param data ItemData
 local function filter(data)
 	local Consumable = data.itemInfo.itemType == 'Consumable' or data.itemInfo.itemSubType == 'Consumables'
-	if data.itemInfo.isCraftingReagent or Consumable or data.itemInfo.itemType == 'Quest' or data.itemInfo.itemType == 'Armor' or data.itemInfo.itemType == 'Battle Pets' then
+	if
+		(data.itemInfo.isCraftingReagent or Consumable or data.itemInfo.itemType == 'Quest' or data.itemInfo.itemType == 'Armor' or data.itemInfo.itemType == 'Battle Pets') and
+			not data.containerInfo.hasLoot and
+			not data.transmogInfo.hasTransmog
+	 then
 		if Consumable and data.itemInfo.itemSubType and string.find(data.itemInfo.itemSubType, 'Curio') and addon.DB.FilterCurios then
 			return PREFIX() .. 'Curio'
 		end
@@ -254,7 +258,7 @@ local function filter(data)
 			return PREFIX() .. 'Mounts'
 		end
 
-		if addon.DB.FilterGenericUse and string.find(LineText, ITEM_SPELL_TRIGGER_ONUSE) then
+		if addon.DB.FilterGenericUse and (string.find(LineText, ITEM_SPELL_TRIGGER_ONUSE) or string.find(LineText, GetLocaleString('Right Click to Open'))) then
 			return PREFIX() .. 'Generic Use Items'
 		end
 	end
