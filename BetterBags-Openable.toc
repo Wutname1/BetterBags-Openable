@@ -1,4 +1,4 @@
-## Interface: 110200
+## Interface: 110205
 ## Title: BetterBags - Openable Items
 ## Notes: Filters all items that have a <Right Click to Open> or Use option
 ## IconTexture: Interface/Addons/BetterBags-Openable/Icon
@@ -10,5 +10,16 @@
 ## X-Github: https://github.com/Wutname1/BetterBags-Openable
 ## SavedVariables: BetterBagsOpenableDB
 ## Dependencies: BetterBags
+## Category: Inventory
+## Category-deDE: Inventar
+## Category-esES: Inventario
+## Category-esMX: Inventario
+## Category-frFR: Inventaire
+## Category-itIT: Inventario
+## Category-koKR: 소지품
+## Category-ptBR: Inventário
+## Category-ruRU: Инвентарь
+## Category-zhCN: 物品栏
+## Category-zhTW: 物品欄
 
 main.lua
