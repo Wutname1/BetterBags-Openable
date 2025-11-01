@@ -189,9 +189,15 @@ local SearchItems = {
 
 ---@param data ItemData
 local function filter(data)
+	-- Exclude all armor and weapon types from classification to prevent false positives
+	-- (e.g., items with "companion" in flavor text like Fangs of Ashamane)
+	if data.itemInfo.itemType == 'Weapon' or data.itemInfo.itemType == 'Armor' then
+		return
+	end
+
 	local Consumable = data.itemInfo.itemType == 'Consumable' or data.itemInfo.itemSubType == 'Consumables'
 	if
-		(data.itemInfo.isCraftingReagent or Consumable or data.itemInfo.itemType == 'Quest' or data.itemInfo.itemType == 'Armor' or data.itemInfo.itemType == 'Battle Pets') and
+		(data.itemInfo.isCraftingReagent or Consumable or data.itemInfo.itemType == 'Quest' or data.itemInfo.itemType == 'Battle Pets') and
 			not data.containerInfo.hasLoot and
 			not data.transmogInfo.hasTransmog
 	 then
